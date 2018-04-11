@@ -1,0 +1,28 @@
+upLaTeX:
+  e-upTeX 3.14159265-p3.7.1-u1.21-161114-2.6 (utf8.uptex) (TeX Live 2016/Debian)
+  kpathsea version 6.2.2
+  ptexenc version 1.3.4
+jlreq: git master HEAD
+dvipdfmx: This is dvipdfmx Version 20160307 by the DVIPDFMx project team
+
+Debian stableのTeXLive 2016相当に、jlreqをgitからインストール。
+tlmgr install platex-tools でplatex-toolsをインストール (2017/12/17 v0.9 Generate crop mark 'tombow')
+
+・現状のDockerの推奨環境・およびRe:VIEW開発者の基本環境として、
+  DebianのTeXLive 2016、upLaTeX、dvipdfmxを組み合わせるものとしている。
+・2016に収録されていないか古すぎるような、jlreqや一部のパッケージは後付けで
+  入れるにしても、あまりその数は増やしたくない。
+・「ある時点」のバージョンのパッケージをtlmgrで入れるのはリポジトリ側の
+  対応がなさそうな？
+・gitを使って環境構築時に動的に展開・インストールとすることはできなくは
+  ないが、Dockerならともかく、ネイティブに環境構築しようとする人には
+  煩雑な印象(Windowsでは特に大変かも)。
+
+[サンプル]
+・jlreqを使用。仕上がりはA5版。上記環境のupLaTeX+dvipdfmxを使用。
+・dvipdfmxには紙面サイズオプションは付けていない。そもそも-pオプションを指定しても無視されているような…
+
+t1.tex: pxgentombow.styのみ。トンボ+A4になるが左上に配置される
+t2.tex: pxgentombow + bounddvi。トンボ+A4になり、センターに配置(適正)
+t3.tex: bxpapersize + pxgentombow。A5で左上配置、あふれる
+t4.tex: bxpapersize[size=a4paper] + pxgentombow。bxpapersizeのsizeオプションを解析できずコンパイルエラーが発生(TeXバージョン?)
